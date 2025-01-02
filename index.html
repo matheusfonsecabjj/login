@@ -1,8 +1,5 @@
-
-
-
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -17,12 +14,72 @@
         <!-- Centraliza a imagem dentro do formulário -->
         <img src="logo.png" alt="Login" class="logo">
         <h1>Login</h1>
-        <input type="text" placeholder="Nome">
-        <br><br>
-        <input type="password" placeholder="Senha">
-        <br><br>
-        <button>Enviar</button>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Nome" required>
+            <br><br>
+            <input type="password" id="password" placeholder="Senha" required>
+            <br><br>
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="error-message" style="color: red; display: none;">Credenciais inválidas!</p>
     </div>
+
+    <script>
+        // Lista de usuários cadastrados
+        const users = [
+            { username: "admin1", password: "senha123" },
+            { username: "admin2", password: "senha456" },
+            { username: "admin3", password: "senha789" },
+            { username: "admin4", password: "senha101112" }
+        ];
+
+        // Formulário de login
+        const form = document.getElementById("login-form");
+        const errorMessage = document.getElementById("error-message");
+
+        // Função para verificar o login
+        form.addEventListener("submit", (event) => {
+            event.preventDefault(); // Evita o envio do formulário
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            // Verifica se as credenciais estão corretas
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                // Caso o login seja bem-sucedido, armazena no localStorage e redireciona
+                localStorage.setItem("isLoggedIn", true); // Marca o login
+                localStorage.setItem("loginTime", Date.now()); // Armazena o horário de login
+                window.location.href = "https://matheusfonsecabjj.github.io/home/"; // Redireciona para a página principal
+            } else {
+                // Caso as credenciais sejam inválidas
+                errorMessage.style.display = "block"; // Exibe a mensagem de erro
+            }
+        });
+
+        // Função para verificar se o tempo de login expirou
+        function checkLogout() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            const loginTime = localStorage.getItem("loginTime");
+
+            if (isLoggedIn && loginTime) {
+                const currentTime = Date.now();
+                const elapsedTime = currentTime - parseInt(loginTime, 10);
+
+                // Verifica se se passaram 30 minutos (1800000 ms)
+                if (elapsedTime >= 1800000) {
+                    localStorage.clear(); // Limpa os dados de login
+                    alert("Sua sessão expirou. Você será redirecionado para a página de login.");
+                    window.location.href = "https://matheusfonsecabjj.github.io/login/"; // Redireciona para a página de login
+                }
+            }
+        }
+
+        // Checa o logout a cada minuto
+        setInterval(checkLogout, 60000);
+    </script>
+
 </body>
 
 </html>
