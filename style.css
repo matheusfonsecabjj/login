@@ -1,3 +1,4 @@
+/* Estilo base */
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-image: linear-gradient(to right, rgb(101, 189, 201), rgb(230, 230, 230));
@@ -6,22 +7,25 @@ body {
     align-items: center;     /* Centraliza o conteúdo verticalmente */
     height: 100vh;           /* Preenche toda a altura da janela */
     margin: 0;
+    padding: 10px;           /* Garante espaço para telas muito pequenas */
+    box-sizing: border-box;  /* Inclui padding e borda no cálculo de largura */
 }
 
 div {
     background-color: rgba(44, 44, 44, 0.9);
-    padding: 70px;
+    padding: 50px; /* Menor padding para telas pequenas */
     border-radius: 15px;
     color: white;
     width: 100%;
-    max-width: 300px;  /* Limita a largura da div */
+    max-width: 350px;  /* Limita a largura máxima da div */
     display: flex;
     flex-direction: column; /* Organiza os elementos na vertical */
     align-items: center;    /* Centraliza os elementos dentro da div */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .logo {
-    width: 200px;  /* Ajuste o tamanho da imagem */
+    width: 150px;  /* Tamanho da imagem proporcional para responsividade */
     height: auto;   /* Mantém a proporção da imagem */
     margin-bottom: 20px; /* Espaçamento abaixo da imagem */
 }
@@ -34,6 +38,7 @@ input {
     width: 100%;  /* Faz os campos de input ocuparem toda a largura possível */
     margin-bottom: 15px;  /* Espaçamento entre os campos */
     border-radius: 10px;  /* Borda arredondada */
+    box-sizing: border-box; /* Garante o ajuste correto do padding */
 }
 
 button {
@@ -46,9 +51,51 @@ button {
     font-size: 15px;
     cursor: pointer;
     margin-top: 10px;  /* Espaçamento entre os campos e o botão */
+    transition: background-color 0.3s ease; /* Transição suave */
 }
 
 button:hover {
     background-color: deepskyblue;
     cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    div {
+        padding: 30px; /* Reduz o padding para telas menores */
+    }
+
+    .logo {
+        width: 120px; /* Ajuste menor da logo */
+    }
+
+    input {
+        font-size: 14px; /* Fonte menor nos inputs */
+        padding: 12px;   /* Ajuste do padding */
+    }
+
+    button {
+        font-size: 14px; /* Fonte menor no botão */
+        padding: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    div {
+        padding: 20px; /* Mais compactado para telas muito pequenas */
+    }
+
+    .logo {
+        width: 100px; /* Reduz ainda mais o tamanho da logo */
+    }
+
+    input {
+        font-size: 12px; /* Fonte reduzida */
+        padding: 10px;   /* Padding menor */
+    }
+
+    button {
+        font-size: 12px; /* Ajusta o tamanho do texto do botão */
+        padding: 10px;
+    }
 }
