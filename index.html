@@ -78,6 +78,15 @@
 
         // Checa o logout a cada minuto
         setInterval(checkLogout, 60000);
+
+        // Função para garantir que o usuário está logado ao acessar a página
+        window.onload = () => {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            if (!isLoggedIn) {
+                // Se não estiver logado, redireciona para a página de login
+                window.location.href = "https://matheusfonsecabjj.github.io/login/";
+            }
+        }
     </script>
 
 </body>
