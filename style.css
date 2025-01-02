@@ -10,15 +10,14 @@ body {
 
 div {
     background-color: rgba(44, 44, 44, 0.9);
-    padding: 40px;
+    padding: 70px;
     border-radius: 15px;
     color: white;
     width: 100%;
-    max-width: 400px;  /* Limita a largura da div */
+    max-width: 300px;  /* Limita a largura da div */
     display: flex;
     flex-direction: column; /* Organiza os elementos na vertical */
     align-items: center;    /* Centraliza os elementos dentro da div */
-    box-sizing: border-box; /* Garante que o padding não sobrecarregue a largura */
 }
 
 .logo {
@@ -52,10 +51,4 @@ button {
 button:hover {
     background-color: deepskyblue;
     cursor: pointer;
-}
-
-#error-message {
-    color: red;
-    display: none; /* Inicialmente a mensagem de erro estará oculta */
-    margin-top: 10px;
 }
