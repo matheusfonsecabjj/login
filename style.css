@@ -40,7 +40,7 @@ button {
     background-color: dodgerblue;
     border: none;
     padding: 15px;
-    width: 100%;  /* Faz o botão ocupar toda a largura do formulário */
+    width: 120%;  /* Faz o botão ocupar toda a largura do formulário */
     border-radius: 10px;
     color: white;
     font-size: 15px;
