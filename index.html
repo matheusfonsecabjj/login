@@ -82,9 +82,13 @@
         // Função para garantir que o usuário está logado ao acessar a página
         window.onload = () => {
             const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+            // Se não estiver logado, redireciona para a página de login
             if (!isLoggedIn) {
-                // Se não estiver logado, redireciona para a página de login
-                window.location.href = "https://matheusfonsecabjj.github.io/login/";
+                // Garantir que não entre em um loop de redirecionamento
+                if (window.location.pathname !== "/login/") {
+                    window.location.href = "https://matheusfonsecabjj.github.io/login/";
+                }
             }
         }
     </script>
