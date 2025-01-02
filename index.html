@@ -1,94 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="style.css" rel="stylesheet">
-</head>
-
-<body>
-    <div>
-        <!-- Centraliza a imagem dentro do formulário -->
-        <img src="logo.png" alt="Login" class="logo">
-        <h1>Login</h1>
-        <form id="login-form">
-            <input type="text" id="username" placeholder="Nome" required>
-            <br><br>
-            <input type="password" id="password" placeholder="Senha" required>
-            <br><br>
-            <button type="submit">Entrar</button>
-        </form>
-        <p id="error-message" style="color: red; display: none;">Credenciais inválidas!</p>
-    </div>
-
+    <link rel="stylesheet" type="text/css" href="pagina.css" media="screen" />
+    <title>Logística MP</title>
     <script>
-        // Lista de usuários cadastrados
-        const users = [
-            { username: "admin1", password: "senha123" },
-            { username: "admin2", password: "senha456" },
-            { username: "admin3", password: "senha789" },
-            { username: "admin4", password: "senha101112" }
-        ];
+        // Verificar se o usuário está logado
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-        // Formulário de login
-        const form = document.getElementById("login-form");
-        const errorMessage = document.getElementById("error-message");
-
-        // Função para verificar o login
-        form.addEventListener("submit", (event) => {
-            event.preventDefault(); // Evita o envio do formulário
-
-            const username = document.getElementById("username").value.trim();
-            const password = document.getElementById("password").value.trim();
-
-            // Verifica se as credenciais estão corretas
-            const user = users.find(u => u.username === username && u.password === password);
-
-            if (user) {
-                // Caso o login seja bem-sucedido, armazena no localStorage e redireciona
-                localStorage.setItem("isLoggedIn", true); // Marca o login
-                localStorage.setItem("loginTime", Date.now()); // Armazena o horário de login
-                window.location.href = "https://matheusfonsecabjj.github.io/home/"; // Redireciona para a página principal
-            } else {
-                // Caso as credenciais sejam inválidas
-                errorMessage.style.display = "block"; // Exibe a mensagem de erro
-            }
-        });
-
-        // Função para verificar se o tempo de login expirou
-        function checkLogout() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn");
-            const loginTime = localStorage.getItem("loginTime");
-
-            if (isLoggedIn && loginTime) {
-                const currentTime = Date.now();
-                const elapsedTime = currentTime - parseInt(loginTime, 10);
-
-                // Verifica se se passaram 30 minutos (1800000 ms)
-                if (elapsedTime >= 1800000) {
-                    localStorage.clear(); // Limpa os dados de login
-                    alert("Sua sessão expirou. Você será redirecionado para a página de login.");
-                    window.location.href = "https://matheusfonsecabjj.github.io/login/"; // Redireciona para a página de login
-                }
-            }
+        // Se não estiver logado, redireciona para a página de login
+        if (!isLoggedIn) {
+            window.location.href = "https://matheusfonsecabjj.github.io/login/"; // Redireciona para o login
         }
 
-        // Checa o logout a cada minuto
-        setInterval(checkLogout, 60000);
+        // Função para fazer logout
+        function logout() {
+            localStorage.clear(); // Limpa os dados do usuário
+            window.location.href = "https://matheusfonsecabjj.github.io/login/"; // Redireciona para o login
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Logo"> <!-- Substitua 'sua-imagem.png' pelo caminho da sua imagem -->
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="menu">
+            <a href="https://matheusfonsecabjj.github.io/home/">Home</a>
+            <a href="https://matheusfonsecabjj.github.io/entrada/">Entrada</a>
+            <a href="https://matheusfonsecabjj.github.io/saida/">Saída</a>
+            <a href="https://matheusfonsecabjj.github.io/lista/">Listagem</a>
+            <a href="https://matheusfonsecabjj.github.io/mapa/">Mapeamento</a>
+            <a href="#" onclick="logout()">Logout</a> <!-- Botão de logout -->
+        </div>
+    </nav>
 
-        // Função para garantir que o usuário está logado ao acessar a página
-        window.onload = () => {
-            const isLoggedIn = localStorage.getItem("isLoggedIn");
-            if (!isLoggedIn) {
-                // Se não estiver logado, redireciona para a página de login
-                window.location.href = "https://matheusfonsecabjj.github.io/login/";
-            }
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('nav .menu');
+            menu.classList.toggle('active');
         }
     </script>
 
-</body>
+    <br><br>
+    <h1>Mensagem Bíblica do Dia</h1>
+    <div class="message-container">
+        <p class="message" id="mensagem"></p>
+    </div>
 
+    <script>
+        // Lista de mensagens bíblicas
+        const mensagensBiblicas = [
+            "Porque sou eu que conheço os planos que tenho para vocês, diz o Senhor, planos de fazê-los prosperar e não de causar dano, planos de dar a vocês esperança e um futuro. - Jeremias 29:11",
+            "O Senhor é o meu pastor; nada me faltará. - Salmos 23:1",
+            "Tudo posso naquele que me fortalece. - Filipenses 4:13",
+            "Confie no Senhor de todo o seu coração e não se apoie em seu próprio entendimento. - Provérbios 3:5",
+            "Pois Deus tanto amou o mundo que deu o seu Filho Unigênito, para que todo o que nele crer não pereça, mas tenha a vida eterna. - João 3:16",
+            "Venham a mim, todos os que estão cansados e sobrecarregados, e eu darei descanso a vocês. - Mateus 11:28",
+            "Seja forte e corajoso! Não tenha medo, pois o Senhor, seu Deus, estará com você onde quer que vá. - Josué 1:9",
+            "Clame a mim e eu responderei e lhe direi coisas grandiosas e insondáveis que você não conhece. - Jeremias 33:3",
+            "Alegrem-se na esperança, sejam pacientes na tribulação, perseverem na oração. - Romanos 12:12",
+            "Mas aqueles que esperam no Senhor renovarão as suas forças. Voarão como águias, correrão e não se cansarão, caminharão e não se fatigarão. - Isaías 40:31"
+        ];
+
+        // Função para obter a mensagem do dia
+        function obterMensagemDoDia() {
+            const hoje = new Date();
+            const indice = hoje.getDate() % mensagensBiblicas.length; // Seleciona uma mensagem com base no dia
+            return mensagensBiblicas[indice];
+        }
+
+        // Exibir a mensagem
+        document.getElementById('mensagem').textContent = obterMensagemDoDia();
+    </script>
+
+</body>
 </html>
